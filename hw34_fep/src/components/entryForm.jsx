@@ -61,7 +61,8 @@ function EntryForm(props) {
                 
               </ul>
           </div>
-        <button className="submit" type="submit">Submit</button>
+          <button className="submit" type="submit">Submit</button>
+          <button className='cancel' onClick={() => (props.setCurrentPage('list'))}>Cancel</button>
         </form>
     </>
    );
