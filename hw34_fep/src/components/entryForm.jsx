@@ -1,9 +1,7 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
-
 import { useFormik } from 'formik';
  
-function EntryForm() {
+function EntryForm(props) {
    
    const formik = useFormik({
      initialValues: {
@@ -11,8 +9,17 @@ function EntryForm() {
        lastName: '',
        phone: '',
      },
-     onSubmit: values => {
-       alert(JSON.stringify(values, null, 2));
+     onSubmit: (values) => {
+       if (values.firstName && values.lastName && values.phone) {
+         values.name = values.firstName + " " + values.lastName;
+         console.log(values)
+         console.log(JSON.stringify(values, null, 2))
+        //  console.log(addEntry);
+         props.addEntry(values);
+         props.setCurrentPage('list')
+       } else {
+         alert('Please enter all mandatory data');
+       }
      },
    });
     return (
@@ -53,9 +60,9 @@ function EntryForm() {
                 </li>
                 
               </ul>
-            </div>
-        </form>
+          </div>
         <button className="submit" type="submit">Submit</button>
+        </form>
     </>
    );
 };

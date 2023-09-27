@@ -12,13 +12,20 @@ function App() {
     fetch('https://jsonplaceholder.typicode.com/users ')
       .then(response => response.json())
       .then(data => setDbresult(data))
-    
   }, []);
 
-function deleteEntry(id) {
+  function deleteEntry(id) {
     const updatedList = dbResult.filter((entry) => entry.id !== id);
     setDbresult(updatedList);
   };
+
+  function addEntry (values) { 
+    let newEntry = {
+      ...values,
+      id: values.id,
+    }
+    return setDbresult([...dbResult, newEntry]);
+  }
    
   return (
     <div className='container'>
@@ -29,7 +36,7 @@ function deleteEntry(id) {
         </ul>
       </nav>
       {СurrentPage === 'list' && <EntryList dbResult={dbResult} deleteEntry={deleteEntry}/>}
-      {СurrentPage === 'form' && <EntryForm/>}
+      {СurrentPage === 'form' && <EntryForm addEntry={ addEntry } setCurrentPage={setCurrentPage} />}
     </div>
   )
 }
